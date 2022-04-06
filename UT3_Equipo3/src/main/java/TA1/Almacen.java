@@ -96,4 +96,13 @@ public class Almacen {
             buscado = buscado.getSiguienteNodo();
         }
     }
+    
+    public boolean eliminar(String clave) {
+        return productos.eliminar(clave);
+    }
+    
+    
+    public String imprimirProductos() {
+        return productos.imprimir();
+    }
 }

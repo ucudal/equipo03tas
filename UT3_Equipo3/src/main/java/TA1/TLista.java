@@ -66,6 +66,49 @@ public class TLista <T> {
             aux.setSiguienteNodo(nodo);
         }
     }
+    
+    
+    public boolean eliminar(String clave) {
+        if (esVacia()) {
+            return false;
+        }
+        if (primero.getSiguienteNodo() == null) {
+            if (primero.getEtiqueta().equals(clave)) {
+                primero = null;
+                return true;
+            }
+        }
+        TNodo<T> aux = primero;
+        if (aux.getEtiqueta().compareTo(clave) == 0) {
+            TNodo<T> temp = aux.getSiguienteNodo();
+            primero = temp;
+            return true;
+        }
+        while (aux.getSiguienteNodo() != null) {
+            if (aux.getSiguienteNodo().getEtiqueta().equals(clave)) {
+                TNodo<T> temp = aux.getSiguienteNodo();
+                aux.setSiguienteNodo(temp.getSiguienteNodo());
+                return true;
+
+            }
+            aux = aux.getSiguienteNodo();
+        }
+        return false;
+    }
+    
+     public String imprimir() {
+        String aux = "";
+        if (!esVacia()) {
+            TNodo<T> temp = primero;
+            while (temp != null) {
+                temp.imprimirEtiqueta();
+                temp = temp.getSiguienteNodo();
+            }
+        }
+        return aux;
+    }
+    
+    
 
     public boolean esVacia() {
         return primero == null;

@@ -38,4 +38,9 @@ public class TNodo <T> {
     public void setDato(T dato) {
         this.dato = dato;
     }
+   
+    public void imprimirEtiqueta() {
+        System.out.println(this.etiqueta);
+    }
+
 }
