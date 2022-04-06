@@ -24,50 +24,57 @@ public class Almacen {
         }
     }
 
-    public boolean agregarStockAProducto(int cantidadProductoAgregar, Comparable codigoProducto) {
-        TNodo<Producto> buscado = productos.getPrimero();
-        while (buscado != null) {
-            Producto prod = (Producto) buscado.getDato();
-            if (buscado.getEtiqueta().equals(codigoProducto)) {
-                int stockActual = prod.getStock();
-                prod.setStock(stockActual + cantidadProductoAgregar);
-                System.out.println("El articulo: " + prod.getNombre() + " incremento stock en :" + cantidadProductoAgregar);
-                return true;
-            }
-            buscado = buscado.getSiguienteNodo();
-        }
-        return false;
+    public void agregarStockAProducto(int cantidadProductoAgregar, Comparable codigoProducto) {
+        TNodo <Producto> busqueda = productos.buscar(codigoProducto);
+        
+        if (busqueda != null){
+            busqueda.getDato().setStock(busqueda.getDato().getStock() + cantidadProductoAgregar);
+            System.out.println("El articulo: " + busqueda.getDato().getNombre() + " ha incremento su stock en :" + cantidadProductoAgregar);
+            System.out.println("Se ha modificado el stock del producto: " + busqueda.getDato().getNombre() + " ahora tiene en stock: " + busqueda.getDato().getStock());
+        } else{
+            System.out.println("El producto al que se le quiere agregar stock no se ha encontrado.");
+        } 
     }
 
     public void reducirStock(int cantidadProductoReducir, String codigoProducto) {
-        TNodo<Producto> primero = productos.getPrimero();
-        while (primero != null) {
-            Producto prod = primero.getDato();
-            if (primero.getEtiqueta().equals(codigoProducto)) {
-                if (cantidadProductoReducir >= prod.getStock()) {
-                    prod.setStock(0);
-                    //return (0);
-                    System.out.println("El stock del producto " + prod.getNombre() + "se redujo a " + "0");
-                } else {
-                    prod.setStock(prod.getStock() - cantidadProductoReducir);
-                    System.out.println("El stock del producto " + prod.getNombre() + "se redujo a " + prod.getStock());
-                }
+        
+        TNodo <Producto> busqueda = productos.buscar(codigoProducto);
+        
+        if (busqueda != null){
+            if(cantidadProductoReducir <= busqueda.getDato().getStock()){
+                busqueda.getDato().setStock(busqueda.getDato().getStock() - cantidadProductoReducir);
+                System.out.println("El articulo: " + busqueda.getDato().getNombre() + " ha reducido su stock en :" + cantidadProductoReducir);
+                System.out.println("Se ha modificado el stock del producto: " + busqueda.getDato().getNombre() + " ahora tiene en stock: " + busqueda.getDato().getStock());
+            } else{
+                busqueda.getDato().setStock(0);
+                System.out.println("El articulo: " + busqueda.getDato().getNombre() + " ha reducido su stock en :" + cantidadProductoReducir);
+                System.out.println("Se ha modificado el stock del producto: " + busqueda.getDato().getNombre() + " ahora tiene en stock: " + busqueda.getDato().getStock());
             }
-            primero = primero.getSiguienteNodo();
-        }
-        System.out.println("El articulo no existe");
+            
+        } else {
+            System.out.println("El producto al que se le quiere reducir stock no se ha encontrado.");
+        } 
     }
 
     public void reducirStockAProductoArchivo(String archivoVentas) {
+        int contador = 0;
+        float valorDeVenta = 0;
         String[] ventas = ManejadorArchivosGenerico.leerArchivo(archivoVentas);
         for (String lineaLeida : ventas) {
+            contador += 1;
             try {
                 String[] lineaAProcesar = lineaLeida.split(",");
-                reducirStock(Integer.parseInt(lineaAProcesar[1].trim()), (lineaAProcesar[0].trim()));
+                if (lineaAProcesar.length == 2){
+                    reducirStock(Integer.parseInt(lineaAProcesar[1].trim()), (lineaAProcesar[0].trim()));
+                    valorDeVenta += ((productos.buscar(lineaAProcesar[0].trim()).getDato().getPrecio()) * Integer.parseInt(lineaAProcesar[1].trim()));
+                } else {
+                    System.out.println("La linea " + contador + " del archivo de texto esta corrupta.");
+                }
             } catch (Exception e) {
-                System.out.println("Fallo al leer linea.");
+                System.out.println("Fallo en la data de la linea " + contador + ".");
             }
         }
+       System.out.println("El valor de la venta fue: " + valorDeVenta); 
     }
     
     public void agregarStockDesdeArchivo(String archivoAltas) {
@@ -75,13 +82,14 @@ public class Almacen {
         try {
             for (String lineaLeida : altas) {
                 String[] lineaAProcesar = lineaLeida.split(",");
-                Producto prod = new Producto(lineaAProcesar[0], lineaAProcesar[1], Float.parseFloat(lineaAProcesar[2]), Integer.parseInt(lineaAProcesar[3]));
-                boolean checkProduct = agregarStockAProducto(Integer.parseInt(lineaAProcesar[3]), lineaAProcesar[0]);
-                if (!checkProduct){
-                    agregarProducto(prod);//Si el producto no esta en la lista
-                } else{
-                    System.out.println("Se ha modificado el stock del producto: " + prod.getNombre() + " y su stock a " + prod.getStock() + ".");
-                }               
+                if (lineaAProcesar.length == 4){
+                    Producto prod = new Producto(lineaAProcesar[0].trim(), lineaAProcesar[1].trim(), Float.parseFloat(lineaAProcesar[2].trim()), Integer.parseInt(lineaAProcesar[3].trim()));
+                    if (productos.buscar(lineaAProcesar[0].trim()) == null){
+                        agregarProducto(prod);//Si el producto no esta en la lista
+                    } else {
+                        agregarStockAProducto(Integer.parseInt(lineaAProcesar[3].trim()), lineaAProcesar[0].trim());
+                    }
+                }            
             }
         } catch (Exception e) {
             System.out.println("Error en la lectura del archivo. Archivo corrupto.");
@@ -100,7 +108,6 @@ public class Almacen {
     public boolean eliminar(String clave) {
         return productos.eliminar(clave);
     }
-    
     
     public String imprimirProductos() {
         return productos.imprimir();
