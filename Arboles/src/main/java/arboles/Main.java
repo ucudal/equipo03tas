@@ -8,9 +8,12 @@ package arboles;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
-        //arbol de ejemplo con numeros
+       
         ArbolBB<Integer> arbol = new ArbolBB<Integer>();
+         
+         String[] consultas = ManejadorArchivosGenerico.leerArchivo("src/Claves1.txt");  // Leer un arvhivo 
+        
+
     }
 
 }

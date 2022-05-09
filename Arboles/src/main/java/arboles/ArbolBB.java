@@ -1,10 +1,10 @@
 package arboles;
 
 public class ArbolBB<T> implements IArbolBB<T> {
-    private NodoABB<T> raiz;
+    private ElementoAB<T> raiz;
 
     @Override
-    public boolean insertar(NodoABB<T> unElemento) {
+    public boolean insertar(ElementoAB<T> unElemento) {
         if (raiz == null) {
             raiz = unElemento;
             return true;
@@ -18,8 +18,12 @@ public class ArbolBB<T> implements IArbolBB<T> {
     }
 
     @Override
-    public NodoABB<T> buscar(Comparable unaEtiqueta) {
-        return null;
+    public ElementoAB<T> buscar(Comparable unaEtiqueta) {
+       if (esVacio()) {
+            return null;
+        } else {
+            return raiz.buscar(unaEtiqueta);
+        }
     }
 
     @Override
@@ -62,12 +66,12 @@ public class ArbolBB<T> implements IArbolBB<T> {
         return raiz == null;
     }
 
-    public NodoABB<T> getRaiz()
+    public ElementoAB<T> getRaiz()
     {
         return raiz;
     }
 
-    public void setRaiz(NodoABB<T> nuevaRaiz)
+    public void setRaiz(ElementoAB<T> nuevaRaiz)
     {
         raiz = nuevaRaiz;
     }

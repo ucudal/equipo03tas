@@ -1,0 +1,103 @@
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+PSEUDOCODIGO: BUSQUEDA
+
+LENGUAJE NATURAL
+- El metodo deberia a partir de una etiqueta ingresada por parametro, ir comparando con las otras etiquetas de cada nodo de la lista
+y devolver un producto que tenga la misma etiqueta. Si la lista esta vacia devuelve null.
+
+PRECONDICIONES
+- Tiene que ser una etiqueta válida para que se realize la búsqueda y encuentre la etiqueta.
+- La lista no deberia estar vacía sino devuelve null.
+
+POSTCONDICIONES
+- Si encuentra una etiqueta en la lista que coincida con la ingresada por parametro, debería devolver un producto.
+- La lista no debe ser modificada por el método, la lista debe ser la misma, debe estar en las mismas condiciones.
+
+
+TLista.busqueda (etiqueta : comparable):producto
+CODIGO
+ Si vacía entonces
+  Devolver nulo 			// programa sale, devuelve nulo
+ SiNo
+  actual <- primero			// actual se le asigna el primero
+  Mientras actual <> nulo		// mientras que nulo sea distinto de nulo
+   Si actual.Etiqueta = etiqueta	// si la etiqueta de actual es igual a la etiqueta por parametro
+    Devolver actual			//devuelve actual 
+   SiNo
+    actual <- actual.siguiente		// en caso que no, a actual se le asigna el siguiente de actual y vuelve a entrar al while y evaluar condicion
+  FinMientras
+  Devolver nulo				
+ FinSi
+Fin
+
+=> CONCLUIMOS QUE EL ALGORITMO ES DE O(n)
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+PSEUDOCODIGO: INSERTAR ELEMENTO
+
+LENGUAJE NATURAL
+- El metodo deberia a partir de un producto ingresado por parametro, añadirlo a la lista de productos.
+
+PRECONDICIONES
+- Debe existir un producto.
+- Debe existir la lista de productos.
+
+POSTCONDICIONES
+- El producto luego de haberse ejecutado la funcion, deberia haber sido añadido a la lista.
+- El tamaño de la lista debe haber aumentado (incrementa en uno el largo de la misma).
+
+
+Insertar (elemento: tipo elemento)
+
+Si esVacia                                          => O(1)
+primero <-- elemento                                => O(1)
+ SiNo
+
+ Actual <-- primero                                 => O(1)
+
+ Mientras (Actual.siguiente <> nulo)                => O(n)
+ Actual <-- Actual. Siguiente                       => O(1)
+ FinMientras                            
+ Actual.siguiente <-- elemento                      => O(1)
+ FinSi
+FIN
+
+=> CONCLUIMOS QUE EL ALGORITMO ES DE O(n)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+PSEUDOCODIGO: INSERTAR ORDENADO
+
+LENGUAJE NATURAL
+- Preguntamos si el elemento que nos pasan por parametro es menor al primero de la lista. En caso de serlo, insertamos al comienzo. 
+Sino seguimos recorriendo , preguntando si la etiqueta del elemento es menor al siguiente del actual, si es lo insertamos a continuacion del actual, sino se inserta al final.
+
+PRECONDICIONES
+- Debe existir un elemento a ingresar.
+- Debe esxistir una lista de elementos vacia, con elementos, o como sea.
+
+POSTCONDICIONES
+- Luego de ejecutada la funcion, debe quedar ingresado en orden de menor a mayor segun la etiqueta del elemento.
+
+
+Insertar Ordenado(elemento: tipo Elemento)
+
+Actual <-- primero
+Si(elemento.etiqueta comparadoCon Actual.etiqueta < 0)
+	elemento.siguiente  = Actual
+	primero= elemento.
+Mientras (Actual.siguiente <> nulo)
+	Si(elemento.etiqueta comparadoCon Actual.etiqueta < 0)
+		elemento.siguiente = actual.siguiente
+		actual.siguiente = elemento
+	fIN sI
+		actual = actual.siguiente 
+ FinMientras
+Si actual.siguiente=null
+ Actual.siguiente <-- elemento 
+ FinSi
+FIN
+
+
+=> CONCLUIMOS QUE EL ALGORITMO ES DE O(n)
+------------------------------------------------------------------------------------------------------------------------------------------------------------------

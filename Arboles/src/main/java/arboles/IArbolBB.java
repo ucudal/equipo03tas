@@ -9,7 +9,7 @@ public interface IArbolBB<T> {
      * @return Exito de la operacián
      */
 
-    public boolean insertar(NodoABB<T> unElemento);
+    public boolean insertar(ElementoAB<T> unElemento);
 
  
 
@@ -21,7 +21,7 @@ public interface IArbolBB<T> {
      * .
      * @return Elemento encontrado. En caso de no encontrarlo, retorna nulo.
      */
-    public NodoABB<T> buscar(Comparable unaEtiqueta);
+    public ElementoAB<T> buscar(Comparable unaEtiqueta);
 
     /**
      * Imprime en PreOrden los elementos del árbol, separados por guiones.

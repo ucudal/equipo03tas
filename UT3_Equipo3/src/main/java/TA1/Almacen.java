@@ -1,5 +1,7 @@
 package TA1;
 
+import com.mycompany.ut4.ta2.ManejadorArchivosGenerico;
+
 public class Almacen {
 
     private final String nombreAlmacen;
