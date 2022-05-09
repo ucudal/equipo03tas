@@ -1,6 +1,6 @@
 package arboles;
 
-public class NodoABB<T> implements INodoABB<T> {
+public class NodoABB<T> {
     private T dato;
 
     private Comparable etiqueta;
@@ -70,5 +70,9 @@ public class NodoABB<T> implements INodoABB<T> {
 
     public void setHijoDer(NodoABB hijoDer) {
         this.hijoDer = hijoDer;
+    }
+
+    public boolean insertar(NodoABB<T> unElemento) {
+        
     }
 }
