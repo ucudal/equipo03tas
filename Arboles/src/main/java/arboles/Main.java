@@ -15,7 +15,7 @@ public class Main {
         for (String string : consultas) {
             String[] linea = string.trim().split(",");
             try { //manejo de excepciones
-                ElementoAB<Integer> unElementoAB = new ElementoAB<>(Integer.parseInt(linea[0]), null);
+                ElementoAB<Integer> unElementoAB = new ElementoAB<>(Integer.parseInt(linea[0]), Integer.parseInt(linea[0]));
                 arbol.insertar(unElementoAB);
             } catch (Exception e) {
                 System.out.println("Error: " + e);
@@ -23,13 +23,13 @@ public class Main {
 
         }
 
-        //System.out.println("Altura " + arbol.altura());
-        //System.out.println("Hojas " + arbol.contarHojas());
-        //System.out.println("Tamanio " + arbol.tamanio());
-        //IElementoAB<Integer> busqueda = arbol.buscar(412 + "");
-        //System.out.println(busqueda.getEtiqueta());
-        //System.out.println(arbol.inOrden());
-        //System.out.println(arbol.preOrden());
-        //System.out.println(arbol.postOrden());
+        System.out.println("Altura " + arbol.altura());
+        System.out.println("Hojas " + arbol.contarHojas());
+        System.out.println("Tamanio " + arbol.tamanio());
+        IElementoAB<Integer> busqueda = arbol.buscar(412);
+        System.out.println(busqueda.getEtiqueta());
+        System.out.println(arbol.inOrden());
+        System.out.println(arbol.preOrden());
+        System.out.println(arbol.postOrden());
     }
 }
