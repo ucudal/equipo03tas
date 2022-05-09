@@ -1,12 +1,39 @@
     package arboles;
 
-public class ElementoAB<T> {
+public class ElementoAB<T> implements IElementoAB<T>{
     private T dato;
-
     private Comparable etiqueta;
-    private ElementoAB hijoIzq;
-    private ElementoAB hijoDer;
-    
+    private IElementoAB hijoIzq;
+    private IElementoAB hijoDer;
+
+    public ElementoAB(Comparable unaEtiqueta, T dato){
+        this.etiqueta = unaEtiqueta;
+        this.dato = dato;
+    }
+
+    @Override
+    public boolean insertar(IElementoAB<T> unElemento) {
+        int comparable = unElemento.getEtiqueta().compareTo(this.etiqueta);
+        // Izquierdo
+        if (comparable < 0) {
+            if (hijoIzq != null) {
+                return hijoIzq.insertar(unElemento);
+            }
+            hijoIzq = (ElementoAB) unElemento;
+            return true;
+        }
+        // Derecho
+        if (comparable > 0) {
+            if (hijoDer != null) {
+                return hijoDer.insertar(unElemento);
+            }
+            hijoDer = (ElementoAB) unElemento;
+            return true;
+        }
+        // Ya existe la etiqueta
+        return false;
+    }
+
     public int contarHojas() {
         int chi = 0;
         int chd = 0;
@@ -56,27 +83,28 @@ public class ElementoAB<T> {
         this.dato = dato;
     }
 
-    public ElementoAB getHijoIzq() {
+    @Override
+    public Comparable getEtiqueta() {
+        return etiqueta;
+    }
+
+    public IElementoAB getHijoIzq() {
         return hijoIzq;
     }
 
-    public void setHijoIzq(ElementoAB hijoIzq) {
+    public void setHijoIzq(IElementoAB hijoIzq) {
         this.hijoIzq = hijoIzq;
     }
 
-    public ElementoAB getHijoDer() {
+    public IElementoAB getHijoDer() {
         return hijoDer;
     }
 
-    public void setHijoDer(ElementoAB hijoDer) {
+    public void setHijoDer(IElementoAB hijoDer) {
         this.hijoDer = hijoDer;
     }
 
-    public boolean insertar(ElementoAB<T> unElemento) {
-        return true;
-    }
-    
-    public ElementoAB<T> buscar(Comparable unaEtiqueta) {
+    public IElementoAB<T> buscar(Comparable unaEtiqueta) {
 
         if (unaEtiqueta.compareTo(etiqueta) == 0) {
             return this;
@@ -92,11 +120,22 @@ public class ElementoAB<T> {
             return null;
         }
     }
-    
+
+    public String preOrden() {
+        String aux="";
+        aux = aux + " " + etiqueta;
+        if(hijoIzq!=null){
+            aux = aux + hijoIzq.postOrden();
+        }
+        if (hijoDer!=null){
+            aux = aux + hijoDer.postOrden();
+        }
+        return aux;
+    }
      public String postOrden(){
         String aux="";
         if(hijoIzq!=null){
-            aux = hijoIzq.postOrden();
+            aux = aux + hijoIzq.postOrden();
         }        
         if (hijoDer!=null){
             aux = aux + hijoDer.postOrden();
@@ -104,15 +143,25 @@ public class ElementoAB<T> {
         aux = aux + " " + etiqueta;
         return aux;
     }
-    
+
+    @Override
+    public T getDatos() {
+        return dato;
+    }
+
+    @Override
+    public IElementoAB eliminar(Comparable unaEtiqueta) {
+        return null;
+    }
+
     public String inOrden() {
         String aux = "";
         if (hijoIzq != null) {
-            aux = hijoIzq.inOrden();
+            aux = aux + hijoIzq.inOrden();
         }
-        aux += this.etiqueta;
+        aux += " " + this.etiqueta;
         if (hijoDer != null) {
-            aux = aux + " " + hijoDer.inOrden();
+            aux = aux + hijoDer.inOrden();
         }
         return aux;
     }

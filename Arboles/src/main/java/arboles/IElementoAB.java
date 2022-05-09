@@ -90,4 +90,9 @@ public interface IElementoAB<T> {
      */
     public IElementoAB eliminar(Comparable unaEtiqueta);
 
+    public int contarHojas();
+
+    public int tamanio();
+
+    public int altura();
 }

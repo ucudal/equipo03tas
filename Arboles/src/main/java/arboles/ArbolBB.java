@@ -2,14 +2,20 @@ package arboles;
 
 public class ArbolBB<T> implements IArbolBB<T> {
     private ElementoAB<T> raiz;
-
+    private int contadorInsertar;
     @Override
     public boolean insertar(ElementoAB<T> unElemento) {
-        if (raiz == null) {
-            raiz = unElemento;
-            return true;
+        boolean inserto;
+        if (esVacio()) {
+            this.raiz = unElemento;
+            inserto = true;
         }
-        return raiz.insertar(unElemento);
+        else {
+            inserto = raiz.insertar(unElemento);
+        }
+
+        if (inserto) contadorInsertar++;
+        return inserto;
     }
 
     @Override
@@ -18,7 +24,7 @@ public class ArbolBB<T> implements IArbolBB<T> {
     }
 
     @Override
-    public ElementoAB<T> buscar(Comparable unaEtiqueta) {
+    public IElementoAB<T> buscar(Comparable unaEtiqueta) {
        if (esVacio()) {
             return null;
         } else {
@@ -28,17 +34,20 @@ public class ArbolBB<T> implements IArbolBB<T> {
 
     @Override
     public String preOrden() {
-        return null;
+        if (esVacio()) return null;
+        return raiz.preOrden();
     }
 
     @Override
     public String inOrden() {
-        return null;
+        if (esVacio()) return null;
+        return raiz.inOrden();
     }
 
     @Override
     public String postOrden() {
-        return null;
+        if (esVacio()) return null;
+        return raiz.postOrden();
     }
 
     public int contarHojas() {

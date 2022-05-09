@@ -21,7 +21,7 @@ public interface IArbolBB<T> {
      * .
      * @return Elemento encontrado. En caso de no encontrarlo, retorna nulo.
      */
-    public ElementoAB<T> buscar(Comparable unaEtiqueta);
+    public IElementoAB<T> buscar(Comparable unaEtiqueta);
 
     /**
      * Imprime en PreOrden los elementos del árbol, separados por guiones.
