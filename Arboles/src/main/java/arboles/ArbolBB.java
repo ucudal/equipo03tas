@@ -5,7 +5,11 @@ public class ArbolBB<T> implements IArbolBB<T> {
 
     @Override
     public boolean insertar(NodoABB<T> unElemento) {
-        return false;
+        if (raiz == null) {
+            raiz = unElemento;
+            return true;
+        }
+        return raiz.insertar(unElemento);
     }
 
     @Override
@@ -15,6 +19,21 @@ public class ArbolBB<T> implements IArbolBB<T> {
 
     @Override
     public NodoABB<T> buscar(Comparable unaEtiqueta) {
+        return null;
+    }
+
+    @Override
+    public String preOrden() {
+        return null;
+    }
+
+    @Override
+    public String inOrden() {
+        return null;
+    }
+
+    @Override
+    public String postOrden() {
         return null;
     }
 
