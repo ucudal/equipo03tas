@@ -15,6 +15,7 @@ public class ArbolBB<T> implements IArbolBB<T> {
         }
 
         if (inserto) contadorInsertar++;
+        System.out.println("Cantidad de elementos: " + contadorInsertar);
         return inserto;
     }
 

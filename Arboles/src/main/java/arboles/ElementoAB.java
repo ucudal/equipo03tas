@@ -1,10 +1,10 @@
-    package arboles;
+package arboles;
 
 public class ElementoAB<T> implements IElementoAB<T>{
     private T dato;
     private Comparable etiqueta;
-    private IElementoAB hijoIzq;
-    private IElementoAB hijoDer;
+    private IElementoAB<T> hijoIzq;
+    private IElementoAB<T> hijoDer;
 
     public ElementoAB(Comparable unaEtiqueta, T dato){
         this.etiqueta = unaEtiqueta;
@@ -13,13 +13,15 @@ public class ElementoAB<T> implements IElementoAB<T>{
 
     @Override
     public boolean insertar(IElementoAB<T> unElemento) {
+        if (unElemento == null) return false;
+
         int comparable = unElemento.getEtiqueta().compareTo(this.etiqueta);
         // Izquierdo
         if (comparable < 0) {
             if (hijoIzq != null) {
                 return hijoIzq.insertar(unElemento);
             }
-            hijoIzq = (ElementoAB) unElemento;
+            hijoIzq = unElemento;
             return true;
         }
         // Derecho
@@ -27,13 +29,14 @@ public class ElementoAB<T> implements IElementoAB<T>{
             if (hijoDer != null) {
                 return hijoDer.insertar(unElemento);
             }
-            hijoDer = (ElementoAB) unElemento;
+            hijoDer = unElemento;
             return true;
         }
         // Ya existe la etiqueta
         return false;
     }
 
+    @Override
     public int contarHojas() {
         int chi = 0;
         int chd = 0;
@@ -49,6 +52,7 @@ public class ElementoAB<T> implements IElementoAB<T>{
         return chi + chd;
     }
 
+    @Override
     public int tamanio() {
         int suma = 1;
         if (hijoIzq != null) {
@@ -60,6 +64,7 @@ public class ElementoAB<T> implements IElementoAB<T>{
         return suma;
     }
 
+    @Override
     public int altura() {
         int alturaIzq = 0;
         int alturaDer = 0;
@@ -88,22 +93,26 @@ public class ElementoAB<T> implements IElementoAB<T>{
         return etiqueta;
     }
 
-    public IElementoAB getHijoIzq() {
+    @Override
+    public IElementoAB<T> getHijoIzq() {
         return hijoIzq;
     }
 
-    public void setHijoIzq(IElementoAB hijoIzq) {
+    @Override
+    public void setHijoIzq(IElementoAB<T> hijoIzq) {
         this.hijoIzq = hijoIzq;
     }
-
-    public IElementoAB getHijoDer() {
+    @Override
+    public IElementoAB<T> getHijoDer() {
         return hijoDer;
     }
 
+    @Override
     public void setHijoDer(IElementoAB hijoDer) {
         this.hijoDer = hijoDer;
     }
 
+    @Override
     public IElementoAB<T> buscar(Comparable unaEtiqueta) {
 
         if (unaEtiqueta.compareTo(etiqueta) == 0) {
@@ -121,6 +130,7 @@ public class ElementoAB<T> implements IElementoAB<T>{
         }
     }
 
+    @Override
     public String preOrden() {
         String aux="";
         aux = aux + " " + etiqueta;
@@ -132,6 +142,7 @@ public class ElementoAB<T> implements IElementoAB<T>{
         }
         return aux;
     }
+     @Override
      public String postOrden(){
         String aux="";
         if(hijoIzq!=null){
@@ -154,6 +165,7 @@ public class ElementoAB<T> implements IElementoAB<T>{
         return null;
     }
 
+    @Override
     public String inOrden() {
         String aux = "";
         if (hijoIzq != null) {
