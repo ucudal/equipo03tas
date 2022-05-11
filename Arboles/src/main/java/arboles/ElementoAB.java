@@ -68,9 +68,6 @@ public class ElementoAB<T> implements IElementoAB<T>{
     public int altura() {
         int alturaIzq = 0;
         int alturaDer = 0;
-        if (hijoIzq == null && hijoDer == null) {
-            return 0;
-        }
         if (hijoIzq != null) {
             alturaIzq = hijoIzq.altura();
         }
