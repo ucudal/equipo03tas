@@ -5,6 +5,6 @@ public class TArbolAVL<T> extends ArbolBB<T> {
         if (getRaiz() == null){
             return 0;
         }
-        return ( (TElementoAVL<T>)getRaiz()).factorEquilibrio();
+        return ( (TElementoAVL<T>)getRaiz()).getFactorEq();
     }
 }

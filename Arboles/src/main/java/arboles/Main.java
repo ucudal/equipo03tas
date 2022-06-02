@@ -9,6 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+        /*
         ArbolBB<Integer> arbol = new ArbolBB<>();
 
         String[] consultas = ManejadorArchivosGenerico.leerArchivo("Claves1.txt");  // Leer un arvhivo
@@ -31,5 +32,26 @@ public class Main {
         System.out.println(arbol.inOrden());
         System.out.println(arbol.preOrden());
         System.out.println(arbol.postOrden());
+        */
+
+        TArbolAVL<Integer> arbolAVL = new TArbolAVL<>();
+        Integer uno = 1;
+        Integer dos = 2;
+        Integer tres = 3;
+        Integer cuatro = 4;
+        Integer cinco = 5;
+        
+        TElementoAVL<Integer> elementoUno = new TElementoAVL<>(uno, uno);
+        TElementoAVL<Integer> elementoDos = new TElementoAVL<>(dos, dos);
+        TElementoAVL<Integer> elementoTres = new TElementoAVL<>(tres, tres);
+        TElementoAVL<Integer> elementoCuatro = new TElementoAVL<>(cuatro, cuatro);
+        TElementoAVL<Integer> elementoCinco = new TElementoAVL<>(cinco, cinco);
+
+        arbolAVL.insertar(elementoDos);
+        arbolAVL.insertar(elementoCuatro);
+        arbolAVL.insertar(elementoUno);
+        arbolAVL.insertar(elementoTres);
+
+        System.out.println(arbolAVL.factorEquilibrio());
     }
 }

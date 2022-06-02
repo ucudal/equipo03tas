@@ -23,4 +23,8 @@ public class TElementoAVL<T> extends ElementoAB<T> {
         factorEq = alturaDer - alturaIzq;
         return Math.max(alturaDer, alturaIzq) + 1;
     }
+
+    public int getFactorEq() {
+        return factorEq;
+    }
 }
