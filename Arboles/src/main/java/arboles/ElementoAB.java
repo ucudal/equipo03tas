@@ -1,19 +1,22 @@
 package arboles;
 
-public class ElementoAB<T> implements IElementoAB<T>{
+public class ElementoAB<T> implements IElementoAB<T> {
+
     private T dato;
     private Comparable etiqueta;
     private IElementoAB<T> hijoIzq;
     private IElementoAB<T> hijoDer;
 
-    public ElementoAB(Comparable unaEtiqueta, T dato){
+    public ElementoAB(Comparable unaEtiqueta, T dato) {
         this.etiqueta = unaEtiqueta;
         this.dato = dato;
     }
 
     @Override
     public boolean insertar(IElementoAB<T> unElemento) {
-        if (unElemento == null) return false;
+        if (unElemento == null) {
+            return false;
+        }
 
         int comparable = unElemento.getEtiqueta().compareTo(this.etiqueta);
         // Izquierdo
@@ -68,9 +71,6 @@ public class ElementoAB<T> implements IElementoAB<T>{
     public int altura() {
         int alturaIzq = 0;
         int alturaDer = 0;
-        if (hijoIzq == null && hijoDer == null) {
-            return 0;
-        }
         if (hijoIzq != null) {
             alturaIzq = hijoIzq.altura();
         }
@@ -102,6 +102,7 @@ public class ElementoAB<T> implements IElementoAB<T>{
     public void setHijoIzq(IElementoAB<T> hijoIzq) {
         this.hijoIzq = hijoIzq;
     }
+
     @Override
     public IElementoAB<T> getHijoDer() {
         return hijoDer;
@@ -132,23 +133,24 @@ public class ElementoAB<T> implements IElementoAB<T>{
 
     @Override
     public String preOrden() {
-        String aux="";
+        String aux = "";
         aux = aux + " " + etiqueta;
-        if(hijoIzq!=null){
+        if (hijoIzq != null) {
             aux = aux + hijoIzq.postOrden();
         }
-        if (hijoDer!=null){
+        if (hijoDer != null) {
             aux = aux + hijoDer.postOrden();
         }
         return aux;
     }
-     @Override
-     public String postOrden(){
-        String aux="";
-        if(hijoIzq!=null){
+
+    @Override
+    public String postOrden() {
+        String aux = "";
+        if (hijoIzq != null) {
             aux = aux + hijoIzq.postOrden();
-        }        
-        if (hijoDer!=null){
+        }
+        if (hijoDer != null) {
             aux = aux + hijoDer.postOrden();
         }
         aux = aux + " " + etiqueta;
@@ -177,10 +179,15 @@ public class ElementoAB<T> implements IElementoAB<T>{
         }
         return aux;
     }
-    
-    
-    
-    
-    
-    
+
+    public void inorden(Lista<T> unaLista) {
+        if (hijoIzq != null) {
+            hijoIzq.inorden(unaLista);
+        }
+        Nodo<T> n = new Nodo(this.etiqueta, this.dato);
+        unaLista.insertar(n);
+        if (hijoDer != null) {
+            hijoDer.inorden(unaLista);
+        }
+    }
 }

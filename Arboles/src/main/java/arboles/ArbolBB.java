@@ -40,9 +40,19 @@ public class ArbolBB<T> implements IArbolBB<T> {
     }
 
     @Override
-    public String inOrden() {
+    public  String inOrden() {
         if (esVacio()) return null;
         return raiz.inOrden();
+    }
+    
+    public Lista<T> inorden() {
+        Lista <T> laLista = new Lista();
+        if (raiz ==null){
+            return laLista;
+        } else {
+            raiz.inorden(laLista);
+            return laLista;
+        }    
     }
 
     @Override

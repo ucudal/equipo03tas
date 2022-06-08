@@ -27,8 +27,8 @@ public class Main {
         System.out.println("Altura " + arbol.altura());
         System.out.println("Hojas " + arbol.contarHojas());
         System.out.println("Tamanio " + arbol.tamanio());
-        IElementoAB<Integer> busqueda = arbol.buscar(412);
-        System.out.println(busqueda.getEtiqueta());
+        //IElementoAB<Integer> busqueda = arbol.buscar(412);
+        //System.out.println(busqueda.getEtiqueta());
         System.out.println(arbol.inOrden());
         System.out.println(arbol.preOrden());
         System.out.println(arbol.postOrden());

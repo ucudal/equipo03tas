@@ -74,6 +74,8 @@ public interface IElementoAB<T> {
      *
      * @return String conteniendo el PostOrden
      */
+    public void inorden(Lista<T> unaLista);
+    
     public String postOrden();
 
     /**
