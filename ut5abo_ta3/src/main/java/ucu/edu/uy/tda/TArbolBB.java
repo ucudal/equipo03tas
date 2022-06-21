@@ -185,7 +185,20 @@ public class TArbolBB<T> implements IArbolBB<T>
             int[] FNEindice = new int[1];
             return raiz.calcularCosto(frecExito, frecNoExito, FEindice, FNEindice, 1);
         }
-
     }
 
+    public Lista<T> listaDatosNivelMasProfundo() {
+        Lista<T> datos = new Lista<>();
+        if(raiz!=null){
+            raiz.listaDatosNivelMasProfundo(altura(), datos);
+        }
+        return datos;
+    }
+
+    public int longTrayInterna() {
+        if (raiz != null) {
+            return raiz.longTrayInterna(1);
+        }
+        return 1;
+    }
 }

@@ -4,23 +4,20 @@
  */
 package ucu.edu.uy.ut5abo;
 
-import ucu.edu.uy.tda.IArbolBB;
-import ucu.edu.uy.tda.INodo;
-import ucu.edu.uy.tda.Lista;
-import ucu.edu.uy.tda.TArbolBB;
+import ucu.edu.uy.tda.*;
 import ucu.edu.uy.util.CalculadorMatricesOptimo;
 import ucu.edu.uy.util.ManejadorArchivosGenerico;
 
-/**
- *
- * @author nnavarro
- */
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
 public class Main
 {
 
     public static void main(String[] args)
     {
-      
+/*
         TArbolBB elArbol = new TArbolBB();
         // cargar CLAVES y FRECUENCIAS DE BUSQUEDAS EXITOSAS
         String[] lineas = ManejadorArchivosGenerico.leerArchivo("palabras2.txt");
@@ -34,7 +31,6 @@ public class Main
             frecExito[i] = Integer.valueOf(valores[1]);
 
           }
-        
         
         
         // cargar FRECUENCIAS DE BUSQUEDAS NO EXITOSAS
@@ -62,7 +58,37 @@ public class Main
         System.out.println("Matriz W: ");
         CalculadorMatricesOptimo.imprimirMatriz(calculadorABO.W);
 
-        System.out.println(elArbol.calcularCosto(frecExito, frecNoExito));        
-        
+        System.out.println(elArbol.calcularCosto(frecExito, frecNoExito));
+*/
+
+        // ta15
+
+
+        String[] lineas = ManejadorArchivosGenerico.leerArchivo("palabras2.txt");
+        int cantElementos = lineas.length;
+        String[] claves = new String[cantElementos+1];
+        int[] frecExito = new int[cantElementos+1];
+        ArrayList<String> listLineas = new ArrayList<>(cantElementos);
+        Collections.addAll(listLineas, lineas);
+        Collections.shuffle(listLineas);
+        for (int i = 0; i < listLineas.size(); i++) {
+            String linea = listLineas.get(i);
+            String[] valores = linea.split(" ");
+            claves[i + 1] = valores[0];
+            frecExito[i + 1] = Integer.valueOf(valores[1]);
+        }
+        String[] lineas2 = ManejadorArchivosGenerico.leerArchivo("nopalabras2.txt");
+
+        int[] frecNoExito = new int[cantElementos+1];
+        for (int j = 0; j < lineas2.length; j++) {
+            String linea = lineas2[j];
+            frecNoExito[j] = Integer.valueOf(linea);
+        }
+
+        CalculadorMatricesOptimo calculadorABO = new CalculadorMatricesOptimo(cantElementos);
+        calculadorABO.encontrarOptimo(cantElementos, frecExito, frecNoExito);
+        TArbolBB<String> elArbol = new TArbolBB<>();
+        calculadorABO.armarArbolBinario(0, cantElementos, claves, elArbol);
+        System.out.println("LongTrayInterna " + elArbol.longTrayInterna());
     } 
 }

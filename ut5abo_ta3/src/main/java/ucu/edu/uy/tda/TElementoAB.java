@@ -335,9 +335,34 @@ public class TElementoAB<T> implements IElementoAB<T>
         return costo;
     }
 
+    @Override
+    public void listaDatosNivelMasProfundo(int nivel, Lista<T> datos) {
+        if (nivel == 0){
+            Nodo<T> nodo = new Nodo<T>(this.getEtiqueta(), this.getDatos());
+            datos.insertar(nodo);
+            return;
+        }
+        if (hijoIzq != null){
+            hijoIzq.listaDatosNivelMasProfundo(nivel-1, datos);
+        }
+        if (hijoDer != null){
+            hijoDer.listaDatosNivelMasProfundo(nivel-1, datos);
+        }
+    }
 
-         
+    @Override
+    public int longTrayInterna(int nivel) {
+        int suma = nivel;
+        if (hijoIzq != null){
+            suma += hijoIzq.longTrayInterna(nivel+1);
+        }
 
+        if (hijoDer != null){
+            suma += hijoDer.longTrayInterna(nivel+1);
+        }
+
+        return suma + nivel;
+    }
 
 
 }

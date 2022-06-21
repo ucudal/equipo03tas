@@ -123,4 +123,7 @@ public interface IElementoAB<T> {
      */
     public long calcularCosto(int[] frecExito, int[] frecNoExito, int[] indiceFE, int[] indiceFNE, int nivel);
 
+    public void listaDatosNivelMasProfundo(int altura, Lista<T> datos);
+
+    public int longTrayInterna(int nivel);
 }

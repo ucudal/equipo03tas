@@ -72,6 +72,7 @@ public class CalculadorMatricesOptimo implements ICalculadorMatricesOptimo
         if(i<j){
             unaRaiz = R[i][j];
             unNodo = new TElementoAB(Claves[unaRaiz],Claves[unaRaiz]);
+            System.out.println(Claves[unaRaiz]);
             System.out.println(unaRaiz);
             elArbolBB.insertar(unNodo);
             armarArbolBinario(i,unaRaiz-1,Claves,elArbolBB);
