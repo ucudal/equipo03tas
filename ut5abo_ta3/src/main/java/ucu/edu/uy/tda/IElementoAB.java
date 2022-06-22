@@ -126,4 +126,8 @@ public interface IElementoAB<T> {
     public void listaDatosNivelMasProfundo(int altura, Lista<T> datos);
 
     public int longTrayInterna(int nivel);
+
+    public void cuentaFrec(Comparable etiqueta);
+
+    public void completaVectores(Comparable[] claves, int[] frecExito, int[] frecNoExito, int[] indiceVectores);
 }

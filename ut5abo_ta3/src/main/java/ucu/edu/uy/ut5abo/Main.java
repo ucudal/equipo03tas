@@ -8,16 +8,12 @@ import ucu.edu.uy.tda.*;
 import ucu.edu.uy.util.CalculadorMatricesOptimo;
 import ucu.edu.uy.util.ManejadorArchivosGenerico;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-
 public class Main
 {
 
     public static void main(String[] args)
     {
-/*
+        /* TA2 y TA3
         TArbolBB elArbol = new TArbolBB();
         // cargar CLAVES y FRECUENCIAS DE BUSQUEDAS EXITOSAS
         String[] lineas = ManejadorArchivosGenerico.leerArchivo("palabras2.txt");
@@ -61,9 +57,9 @@ public class Main
         System.out.println(elArbol.calcularCosto(frecExito, frecNoExito));
 */
 
-        // ta15
 
 
+        /* TA15
         String[] lineas = ManejadorArchivosGenerico.leerArchivo("palabras2.txt");
         int cantElementos = lineas.length;
         String[] claves = new String[cantElementos+1];
@@ -90,5 +86,70 @@ public class Main
         TArbolBB<String> elArbol = new TArbolBB<>();
         calculadorABO.armarArbolBinario(0, cantElementos, claves, elArbol);
         System.out.println("LongTrayInterna " + elArbol.longTrayInterna());
-    } 
+
+         */
+
+        // TA9
+        // 1 - Leer un archivo de palabras claves, y con cada una de ellas armar un árbol binario de
+        //búsqueda.
+        String[] lineasKW = ManejadorArchivosGenerico.leerArchivo("palabras.txt");
+        String[] keywords = new String[lineasKW.length];
+        for (int i = 0; i < lineasKW.length; i++) {
+            String[] split = lineasKW[i].split(" ");
+            keywords[i] = split[0];
+        }
+        TArbolBB<String> arbolKW = new TArbolBB<>();
+        // TO-DO - Hacer shuffle
+        for (String keyword : keywords) {
+            TElementoAB<String> elemento = new TElementoAB<>(keyword, keyword);
+            arbolKW.insertar(elemento);
+        }
+
+        // 2 - Leer un texto, y por cada palabra de ese texto, buscarla en ese árbol binario de
+        //búsqueda, y... (contFrec)
+        String[] lineasArchivo = ManejadorArchivosGenerico.leerArchivo("codigoJava.txt");
+        Lista<String> listaPalabras = new Lista<>();
+        for (String linea : lineasArchivo) {
+            String[] split = linea.split(" ");
+            for (String palabra : split) {
+                Nodo<String> nodo = new Nodo<>(palabra, palabra);
+                listaPalabras.insertar(nodo);
+            }
+        }
+        // contFrec de cada palabra
+        Nodo<String> aux = listaPalabras.getPrimero();
+        while (aux != null) {
+            arbolKW.cuentaFrec(aux.getDato());
+            aux = aux.getSiguiente();
+        }
+
+        // 3 - Instanciar un vector de frecuencias exitosas, un vector de frecuencias no exitosas y un
+        //vector de claves, para ser usados como entradas en la confección del árbol óptimo.
+        int cantElementos = lineasKW.length;
+        int[] frecExito = new int[cantElementos + 1];
+        int[] frecNoExito = new int[cantElementos + 1];
+
+        //se usa cantElementos + 1 porque el primer elemento del vector claves siempre queda vacio.
+        String[] claves = new String[cantElementos + 1];
+        for (int i = 0; i < keywords.length; i++) {
+            claves[i + 1] = keywords[i];
+        }
+
+        // 4 - Recorrer el árbol para cargar los valores de esos vectores a partir de los valores
+        //contenidos en cada elemento.
+
+        arbolKW.completaVectores(claves, frecExito, frecNoExito);
+
+        // 5 - A partir de los vectores obtenidos, construir el árbol binario de búsqueda óptima de las
+        //palabras claves.
+
+        CalculadorMatricesOptimo calculadorABO = new CalculadorMatricesOptimo(cantElementos);
+        calculadorABO.encontrarOptimo(cantElementos, frecExito, frecNoExito);
+        TArbolBB<String> arbolCodigo = new TArbolBB<>();
+        calculadorABO.armarArbolBinario(0, cantElementos, claves, arbolCodigo);
+
+        Lista<String> inorden = arbolCodigo.inOrden();
+        System.out.println("Inorden: \n" + inorden.imprimir("\n"));
+
+    }
 }

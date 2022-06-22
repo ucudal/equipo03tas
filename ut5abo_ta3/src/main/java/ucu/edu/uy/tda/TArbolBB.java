@@ -201,4 +201,19 @@ public class TArbolBB<T> implements IArbolBB<T>
         }
         return 1;
     }
+
+    public void cuentaFrec(Comparable etiqueta) {
+        if (!esVacio()) {
+            raiz.cuentaFrec(etiqueta);
+        }
+    }
+
+    public void completaVectores(Comparable[] claves, int[] frecExito, int[] frecNoExito) {
+        int[] indiceVectores = new int[2];
+        indiceVectores[0] = 1;
+        indiceVectores[1] = 0;
+        if (!esVacio()) {
+            raiz.completaVectores(claves, frecExito, frecNoExito, indiceVectores);
+        }
+    }
 }
