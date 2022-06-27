@@ -216,4 +216,14 @@ public class TArbolBB<T> implements IArbolBB<T>
             raiz.completaVectores(claves, frecExito, frecNoExito, indiceVectores);
         }
     }
+
+    public boolean cumpleAVL() {
+        if (!esVacio()) {
+            boolean[] cumple = new boolean[1];
+            raiz.cumpleAVL(cumple);
+            return cumple[0];
+        } else {
+            return true;
+        }
+    }
 }

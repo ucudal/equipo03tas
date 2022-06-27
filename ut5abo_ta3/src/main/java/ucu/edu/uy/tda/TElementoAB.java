@@ -413,4 +413,20 @@ public class TElementoAB<T> implements IElementoAB<T>
         }
     }
 
+    public int cumpleAVL(boolean[] cumple){
+        int alturaI = 0;
+        int alturaD = 0;
+        if(hijoIzq != null){
+            alturaI = hijoIzq.cumpleAVL(cumple);
+            alturaI +=1;
+        }
+        if(hijoDer != null){
+            alturaD = hijoDer.cumpleAVL(cumple);
+            alturaD +=1;
+        }
+        if(Math.abs(alturaD - alturaI)>=2){
+            cumple[0] = true;
+        }
+        return Math.max(alturaI, alturaD);
+    }
 }
